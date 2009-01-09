@@ -13,7 +13,7 @@ set -e
 . /etc/rc.d/init.d/functions
 
 # Get service config
-[ -f . /etc/sysconfig/eeepc-acpi ] && . /etc/sysconfig/eeepc-acpi
+[ -f /etc/sysconfig/eeepc-acpi ] && . /etc/sysconfig/eeepc-acpi
 
 case "$1" in
 restart|reload|force-reload|start)
