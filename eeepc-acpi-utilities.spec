@@ -77,11 +77,11 @@ install xdg/autostart/eeepc-acpi-util.desktop $RPM_BUILD_ROOT%{_sysconfdir}/xdg/
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post init
+%post
 /sbin/chkconfig --add eeepc-restore
 %service %{name} restart
 
-%preun init
+%preun
 if [ "$1" = "0" ]; then
 	%service -q %{name} stop
 	/sbin/chkconfig --del eeepc-restore
