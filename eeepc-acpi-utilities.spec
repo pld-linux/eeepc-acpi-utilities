@@ -2,7 +2,7 @@ Summary:	ACPI scripts for EeePC netbook computers
 Summary(pl.UTF-8):	Skrypty ACPI dla notebooków EeePC
 Name:		eeepc-acpi-utilities
 Version:	1.0.9
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/eeepc-acpi-util/%{name}_%{version}.tar.gz
@@ -10,6 +10,7 @@ Source0:	http://dl.sourceforge.net/eeepc-acpi-util/%{name}_%{version}.tar.gz
 Source1:	%{name}.init
 URL:		http://eeepc-acpi-util.sourceforge.net/
 Requires:	acpid
+Requires:	coreutils
 Requires:	dmidecode
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -62,6 +63,7 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/{acpi,cron.d,sysconfig,rc.d/init.d,xdg}
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/acpi/{eeepc,events}
 install -d $RPM_BUILD_ROOT%{_datadir}/{,applications,pixmaps}
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart
+install -d $RPM_BUILD_ROOT/var/eeepc
 
 install acpi/eeepc/*.sh $RPM_BUILD_ROOT%{_sysconfdir}/acpi/eeepc/
 install acpi/events/eeepc-hotkeys $RPM_BUILD_ROOT%{_sysconfdir}/acpi/events/
@@ -75,6 +77,16 @@ install xdg/autostart/eeepc-acpi-util.desktop $RPM_BUILD_ROOT%{_sysconfdir}/xdg/
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post init
+/sbin/chkconfig --add eeepc-restore
+%service %{name} restart
+
+%preun init
+if [ "$1" = "0" ]; then
+	%service -q %{name} stop
+	/sbin/chkconfig --del eeepc-restore
+fi
+
 %files
 %defattr(644,root,root,755)
 %dir  %{_sysconfdir}/acpi/eeepc
@@ -86,3 +98,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/xdg/autostart/eeepc-acpi-util.desktop
 %{_desktopdir}/eeepc.desktop
 %{_pixmapsdir}/eee.png
+%dir /var/eeepc
