@@ -56,7 +56,7 @@ management, and more.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/{acpi,cron.d,default,rc.d/init.d,xdg}
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/{acpi,cron.d,sysconfig,rc.d/init.d,xdg}
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/acpi/{eeepc,events}
 install -d $RPM_BUILD_ROOT%{_datadir}/{,applications,pixmaps}
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart
@@ -64,10 +64,10 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart
 install acpi/eeepc/*.sh $RPM_BUILD_ROOT%{_sysconfdir}/acpi/eeepc/
 install acpi/events/eeepc-hotkeys $RPM_BUILD_ROOT%{_sysconfdir}/acpi/events/
 install cron.d/eeepc-fan $RPM_BUILD_ROOT/etc/cron.d/
-install default/eeepc-acpi $RPM_BUILD_ROOT%{_sysconfdir}/default/
+install default/eeepc-acpi $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/
 install init.d/eeepc-restore $RPM_BUILD_ROOT/etc/rc.d/init.d/
-install usr/share/applications/eeepc.desktop $RPM_BUILD_ROOT%{_datadir}/applications/
-install usr/share/pixmaps/eee.png $RPM_BUILD_ROOT%{_datadir}/pixmaps/
+install usr/share/applications/eeepc.desktop $RPM_BUILD_ROOT%{_desktopdir}/
+install usr/share/pixmaps/eee.png $RPM_BUILD_ROOT%{_pixmapsdir}/
 install xdg/autostart/eeepc-acpi-util.desktop $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/
 
 %clean
@@ -79,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sysconfdir}/acpi/eeepc/*.sh
 %{_sysconfdir}/acpi/events/eeepc-hotkeys
 /etc/cron.d/eeepc-fan
-%{_sysconfdir}/default/eeepc-acpi
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/eeepc-acpi
 %attr(754,root,root) /etc/rc.d/init.d/eeepc-restore
 %{_sysconfdir}/xdg/autostart/eeepc-acpi-util.desktop
 %{_desktopdir}/eeepc.desktop
