@@ -7,8 +7,10 @@ License:	GPL
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/eeepc-acpi-util/%{name}_%{version}.tar.gz
 # Source0-md5:	cc32bd733b980d76beaac051f6b2cf4e
+Source1:	%{name}.init
 URL:		http://eeepc-acpi-util.sourceforge.net/
 Requires:	acpid
+Requires:	dmidecode
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -65,7 +67,7 @@ install acpi/eeepc/*.sh $RPM_BUILD_ROOT%{_sysconfdir}/acpi/eeepc/
 install acpi/events/eeepc-hotkeys $RPM_BUILD_ROOT%{_sysconfdir}/acpi/events/
 install cron.d/eeepc-fan $RPM_BUILD_ROOT/etc/cron.d/
 install default/eeepc-acpi $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/
-install init.d/eeepc-restore $RPM_BUILD_ROOT/etc/rc.d/init.d/
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/eeepc-restore
 install usr/share/applications/eeepc.desktop $RPM_BUILD_ROOT%{_desktopdir}/
 install usr/share/pixmaps/eee.png $RPM_BUILD_ROOT%{_pixmapsdir}/
 install xdg/autostart/eeepc-acpi-util.desktop $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/
