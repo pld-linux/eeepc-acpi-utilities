@@ -76,6 +76,7 @@ install acpi/events/eeepc-hotkeys $RPM_BUILD_ROOT%{_sysconfdir}/acpi/events/
 install cron.d/eeepc-fan $RPM_BUILD_ROOT/etc/cron.d/
 install default/eeepc-acpi $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/eeepc-restore
+sed -i "s@/etc/default/eeepc-acpi@/etc/sysconfig/eeepc-acpi@g" $RPM_BUILD_ROOT/etc/rc.d/init.d/eeepc-restore
 install usr/share/applications/eeepc.desktop $RPM_BUILD_ROOT%{_desktopdir}/
 install usr/share/pixmaps/eee.png $RPM_BUILD_ROOT%{_pixmapsdir}/
 install xdg/autostart/eeepc-acpi-util.desktop $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/
