@@ -2,7 +2,7 @@ Summary:	ACPI scripts for EeePC netbook computers
 Summary(pl.UTF-8):	Skrypty ACPI dla notebooków EeePC
 Name:		eeepc-acpi-utilities
 Version:	1.0.9
-Release:	0.2
+Release:	0.3
 License:	GPL
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/eeepc-acpi-util/%{name}_%{version}.tar.gz
