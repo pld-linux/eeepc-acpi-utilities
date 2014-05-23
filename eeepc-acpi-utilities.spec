@@ -55,6 +55,12 @@ management, and more.
 %prep
 %setup -q
 
+for i in usr/share/applications/eeepc.desktop \
+	acpi/eeepc/*.sh \
+	init.d/eeepc-restore ; do
+	sed -i "s@/etc/default/eeepc-acpi@/etc/sysconfig/eeepc-acpi@g" $i
+done
+
 %build
 
 %install
